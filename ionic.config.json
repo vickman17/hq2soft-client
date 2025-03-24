@@ -1,0 +1,7 @@
+{
+  "name": "hq2soft-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
