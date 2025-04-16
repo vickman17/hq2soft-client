@@ -37,7 +37,7 @@ const LoginFunc = async () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("https://hq2soft.com/hq2ClientApi/searchCategory.php");
+        const response = await axios.get("http://localhost/hq2ClientApi/searchCategory.php");
         if (Array.isArray(response.data)) {
           setCategories(response.data);
         } else {

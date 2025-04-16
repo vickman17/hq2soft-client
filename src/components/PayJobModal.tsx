@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IonModal, IonButton, IonContent } from "@ionic/react";
-import PaystackPayment from "./PaystackPayment";
+// import PaystackPayment from "./PaystackPayment";
 import CloseModal from "./CloseModal";
 import { Job } from "../types";
 import RatingComponent from "./RatingComponent";
@@ -37,7 +37,7 @@ const PayJobModal: React.FC<PayJobModalProps> = ({ isOpen, onClose, jobId, amoun
     const [Insufficient, setInsufficient] = useState(false);
 
     const handleRatingSubmit = (rating: number, feedback: string) => {
-        fetch("https://hq2soft.com/hq2ClientApi/saveRating.php", {
+        fetch("http://localhost/hq2ClientApi/saveRating.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId, jobId, rating, feedback }),
@@ -62,7 +62,7 @@ const PayJobModal: React.FC<PayJobModalProps> = ({ isOpen, onClose, jobId, amoun
 
     const fetchUserAccount = async (userId: string) => {
         try {
-            const response = await fetch("https://hq2soft.com/hq2ClientApi/getAccountDetails.php", {
+            const response = await fetch("http://localhost/hq2ClientApi/getAccountDetails.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -107,14 +107,14 @@ const PayJobModal: React.FC<PayJobModalProps> = ({ isOpen, onClose, jobId, amoun
         }
 
         const formattedAmount = parseFloat(numericAmount.toFixed(2)); // Ensure decimal format
-
+        const description = jobDetails?.skill;
 
         setIsPaying(true);
         try {
-            const response = await fetch("https://hq2soft.com/hq2ClientApi/jobPayment.php", {
+            const response = await fetch("http://localhost/hq2ClientApi/jobPayment.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId, jobId, formattedAmount})
+                body: JSON.stringify({ userId, jobId, formattedAmount, description})
             });
             const data = await response.json();
             if (data.success) {
@@ -123,6 +123,7 @@ const PayJobModal: React.FC<PayJobModalProps> = ({ isOpen, onClose, jobId, amoun
                 setResultReason("Successful");
                 setResultStatus("Successful");
                 setOpenResult(true);
+                onClose();
             } else {
                 setResultImg(fail);
                 setResultReason("Failed");
@@ -133,8 +134,9 @@ const PayJobModal: React.FC<PayJobModalProps> = ({ isOpen, onClose, jobId, amoun
 
         } catch (error) {
             console.error("Error processing wallet payment:", error);
-        }
+        }finally{
         setIsPaying(false);
+        }
     };
 
     useEffect(() => {
@@ -148,7 +150,7 @@ const PayJobModal: React.FC<PayJobModalProps> = ({ isOpen, onClose, jobId, amoun
 
     const handlePaystackSuccess = async () => {
         try {
-            const response = await fetch("https://hq2soft.com/hq2ClientApi/updateJobStatus.php", {
+            const response = await fetch("http://localhost/hq2ClientApi/updateJobStatus.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ jobId, status: "completed" })
@@ -228,7 +230,7 @@ const PayJobModal: React.FC<PayJobModalProps> = ({ isOpen, onClose, jobId, amoun
                         Pay with Paystack
                     </IonButton> */}
                     <div style={{display: Insufficient ? "hidden" : "visible", marginTop: "1rem"}}>
-                    {Insufficient ? "" : <button style={{width: "95%", display: Insufficient ? "hidden" : "visible", borderRadius: "1.5rem", paddingBlock: isPaying ? "5px" : "15px", marginTop: "2rem", fontSize: "18px", fontWeight: "700", background: "var(--ion-company-wood)"}} onClick={handleWalletPayment} disabled={isPaying}>{isPaying ? <img width={20} src={loader} />: "Confirm & Pay"}</button>}    
+                    {Insufficient ? "" : <button style={{width: "95%", color: "white", display: Insufficient ? "hidden" : "visible", borderRadius: "1.5rem", paddingBlock: isPaying ? "5px" : "15px", marginTop: "2rem", fontSize: "18px", fontWeight: "700", background: "var(--ion-company-wood)"}} onClick={handleWalletPayment} disabled={isPaying}>{isPaying ? <img width={20} src={loader} />: "Confirm & Pay"}</button>}    
                     </div>                    
                     {/* {paymentMethod === "paystack" && <PaystackPayment transactionType="Job Payment" amount={amount * 100} onSuccess={handlePaystackSuccess} />} */}
                 </div>

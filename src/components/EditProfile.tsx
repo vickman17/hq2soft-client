@@ -50,7 +50,7 @@ const EditProfile: React.FC<EditProps> = ({isOpen, onClose}) => {
         formData.append('user_id', userId); 
 
         try {
-            const response = await axios.post('https://hq2soft.com/hq2clientApi/uploadProfile.php', formData, {
+            const response = await axios.post('http://localhost/hq2clientApi/uploadProfile.php', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -80,7 +80,7 @@ const EditProfile: React.FC<EditProps> = ({isOpen, onClose}) => {
     };
 
     try {
-      const response = await fetch("https://hq2soft.com/hq2ClientApi/uploadImage.php", {
+      const response = await fetch("http://localhost/hq2ClientApi/uploadImage.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

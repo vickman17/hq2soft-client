@@ -41,7 +41,7 @@ const capitalizeFirstLetter = (word: string): string => {
   }
   
   const fetchCategories = async (): Promise<Category[]> => {
-    const url = 'https://hq2soft.com/hq2ClientApi/fetchCategory.php';
+    const url = 'http://localhost/hq2ClientApi/fetchCategory.php';
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
 
         // Fetch categories when component mounts
         useEffect(() => {
-          fetch("https://hq2soft.com/hq2ClientApi/fetchCategory.php") // Replace with your actual API
+          fetch("http://localhost/hq2ClientApi/fetchCategory.php") // Replace with your actual API
               .then((res) => res.json())
               .then((data) => {
                   setCategories(data);
@@ -157,7 +157,7 @@ const closeService = () => {
     setLoader(true);
 
     try {
-      const response = await fetch(`https://hq2soft.com/hq2ClientApi/fetchSub.php?categoryId=${category.id}`);
+      const response = await fetch(`http://localhost/hq2ClientApi/fetchSub.php?categoryId=${category.id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch subcategories');
       }
@@ -314,7 +314,7 @@ useBackButton(
                                           borderRadius: ".6rem", 
                                           margin: "auto"
                                       }}  
-                                      src={`https://hq2soft.com/hq2ClientApi/${category.category_pics}`} 
+                                      src={`http://localhost/hq2ClientApi/${category.category_pics}`} 
                                       alt={category.category_name}
                                   />
                               </div>

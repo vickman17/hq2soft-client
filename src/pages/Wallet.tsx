@@ -18,6 +18,7 @@ interface Transaction {
     status: string;
     channel: string;
     created_at: string;
+    reference: string;
 }
 
 
@@ -48,7 +49,7 @@ const history = useHistory();
 
     const fetchUserAccount = async (userId: string) => {
         try {
-            const response = await fetch("https://hq2soft.com/hq2ClientApi/getAccountDetails.php", {
+            const response = await fetch("http://localhost/hq2ClientApi/getAccountDetails.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -87,7 +88,7 @@ useEffect(() => {
     const fetchTransactions = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`https://hq2soft.com/hq2ClientApi/fetchTransactions.php?userId=${userId}`);
+            const response = await fetch(`http://localhost/hq2ClientApi/fetchTransactions.php?userId=${userId}`);
             const data = await response.json();
 
             if (data.success) {
@@ -111,7 +112,7 @@ console.log(transactions[0])
     return(
         <IonPage>
             {userDetails ?
-            <IonContent style={{'--background':"#d9d9d9"}}>
+            <IonContent style={{'--background':"#d9d9d9", "--overflow": "hidden"}}>
                 <div style={{background:"var(--ion-company-wood)", color:"white", paddingBottom:"7rem"}}>
                    <div style={{padding:"1rem"}}> 
                    <div style={{fontSize: "14px", marginTop: "1rem"}}>Balance</div>
@@ -142,21 +143,26 @@ console.log(transactions[0])
                     {loading ? (
                 <p>Loading transactions...</p>
             ) : transactions.length > 0 ? (
-                <div>
+                <div style={{border: "0px solid", overflowY: "scroll", height: "60vh", marginTop: ".5rem", paddingBottom: "4.5rem"}}>
                     {transactions.map((transaction) => (
                         <div 
-                            key={transaction.transaction_id} 
+                            key={transaction.reference} 
                             style={{
                                 border: "1px solid #ccc",
                                 padding: "10px",
+                                background: "#ccc",
                                 marginBottom: "10px",
-                                borderRadius: "5px",
-                                backgroundColor: "#f9f9f9",
+                                borderRadius: "8px",
                             }}
                         >
-                            <h3>Amount: ₦{transaction.amount}</h3>
-                            <p><strong>Status:</strong> {transaction.status}</p>
-                            <p><strong>Date:</strong> {new Date(transaction.created_at).toLocaleString()}</p>
+                            <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                                <div style={{fontSize: "18px", fontWeight: "700", color: "var(--ion-company-wood)"}}>{transaction.description}</div>
+                                <div style={{fontSize: "18px", fontWeight: "900", color: "var(--ion-company-wood)"}}>₦{transaction.amount}</div>
+                            </div>
+                            <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                                <div style={{fontSize: "15px", fontWeight: "700", color: "var(--ion-company-wood)"}}>{new Date(transaction.created_at).toLocaleString()}</div>
+                                <div style={{fontSize: "18px", fontWeight: "700", color: transaction.status === "successful" ? "var(--ion-company-wood)" : "var(--ion-company-gold)"}}>{transaction.status}</div>
+                            </div>
                         </div>
                     ))}
                 </div>

@@ -13,12 +13,12 @@ const MainPic: React.FC = () => {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const response = await axios.get('https://hq2soft.com/hq2ClientApi/getProfile.php', {
+                const response = await axios.get('http://localhost/hq2ClientApi/getProfile.php', {
                     params: { user_id: userId }, // Replace with actual user ID
                 });
 
                 if (response.data.success && response.data.profile_picture) {
-                    setProfilePicture('https://hq2soft.com/hq2ClientAPi/' + response.data.profile_picture);
+                    setProfilePicture('http://localhost/hq2ClientAPi/' + response.data.profile_picture);
                 } else {
                     setProfilePicture(null); // No profile picture, fallback to default
                 }

@@ -21,7 +21,7 @@ const PendingJobs: React.FC = () => {
     const lastName = userInfo?.lastName || "";
     const userId = userInfo?.id || "";
 
-    const endpoint = "https://hq2soft.com/hq2ClientApi/getJob.php";
+    const endpoint = "http://localhost/hq2ClientApi/getJob.php";
 
     useEffect(() => {
         if (userId) {
@@ -59,7 +59,7 @@ const PendingJobs: React.FC = () => {
                 }
 
                 const pendingJobs = Array.isArray(jobList)  
-                ? jobList.filter((job: Job) => job.status === "ongoing" || job.status === "processing" || job.status === "pending approval")  
+                ? jobList.filter((job: Job) => job.status === "ongoing" || job.status === "processing" || job.status === "pending approval" || job.status === "in review")  
                 : [];
               
 
@@ -103,7 +103,7 @@ const PendingJobs: React.FC = () => {
                                     </div>
                                     <div 
                                         style={{
-                                            color: job.status === "processing" ? "grey" : "var(--ion-company-gold)", 
+                                            color: job.status === "in review" ? "grey" : "var(--ion-company-gold)", 
                                             fontSize: "14px",
                                             fontWeight: "700"
                                         }}
@@ -117,7 +117,7 @@ const PendingJobs: React.FC = () => {
                                 <div 
                                     style={{
                                         marginTop: "5px", 
-                                        borderTop: "1px solid grey", 
+                                        borderTop: "1px solid #ccc", 
                                         paddingTop: "4px", 
                                         display: "flex", 
                                         justifyContent: "space-between", 

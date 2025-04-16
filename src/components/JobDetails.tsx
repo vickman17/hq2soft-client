@@ -24,7 +24,7 @@ interface JobDetails {
   urgency?: string;
 }
 
-const API_BASE_URL = "https://hq2soft.com/hq2ClientApi"; // Make sure this is correct
+const API_BASE_URL = "http://localhost/hq2ClientApi"; // Make sure this is correct
 
 const JobDetails: React.FC<JobProps> = ({ isJobModalOpen, onClose, jobId }) => {
   const [jobDetails, setJobDetails] = useState<JobDetails | null>(null);
@@ -36,7 +36,7 @@ const JobDetails: React.FC<JobProps> = ({ isJobModalOpen, onClose, jobId }) => {
 
 
   const handleRatingSubmit = (rating: number, feedback: string) => {
-    fetch("https://hq2soft.com/hq2ClientApi/saveRating.php", {
+    fetch("http://localhost/hq2ClientApi/saveRating.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, jobId, rating, feedback }),
@@ -55,7 +55,7 @@ const JobDetails: React.FC<JobProps> = ({ isJobModalOpen, onClose, jobId }) => {
 
   const fetchJobDetails = async () => {
     try {
-      const response = await fetch("https://hq2soft.com/hq2ClientApi/getJobDetails.php", {
+      const response = await fetch("http://localhost/hq2ClientApi/getJobDetails.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ jobId }),

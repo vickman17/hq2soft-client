@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonLabel, IonSegment, IonSegmentButton } from "@ionic/react";
+import { IonContent, IonHeader, IonPage, IonLabel, IonSegment, IonSegmentButton, IonBreadcrumb } from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import BottomNav from "../components/BottomNav";
 import style from "./style/Jobs.module.css";
@@ -46,14 +46,14 @@ const Jobs: React.FC = () => {
 
 
   return (
-    <IonPage>
+    <IonPage style={{background: "white"}}>
       <div style={{fontSize: "32px", border: "0px solid",  color: "var(--ion-company-wood)", fontWeight: "800", width: "95%", margin: "auto", marginTop: ".5rem"}}>Jobs</div>
         <IonSegment className={style.segment} onIonChange={handleSegmentChange} value={selectedSegment} mode="ios" >
           <IonSegmentButton className={style.segBut} value="Completed">
-            <IonLabel >Completed</IonLabel>
+            <div style={{display: "flex", alignItems: "center"}}>Completed <IonBreadcrumb>#</IonBreadcrumb></div>
           </IonSegmentButton>
           <IonSegmentButton className={style.segBut}  value="Pending">
-            <IonLabel>Ongoing</IonLabel>
+            <div>Ongoing</div>
           </IonSegmentButton>
         </IonSegment>
       <IonContent>

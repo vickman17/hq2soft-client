@@ -1,5 +1,5 @@
 import { createChatRoom } from '../services/ChatServices';
-import { IonContent, IonModal, IonButton, IonHeader, IonPage, IonDatetime, IonInput, IonItem, IonLabel } from "@ionic/react";
+import { IonContent, IonModal, IonButton, IonHeader, IonPage, IonDatetime, IonInput, IonItem, IonLabel, IonToast } from "@ionic/react";
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import styles from "./JobRequestModal.module.css";
@@ -33,6 +33,9 @@ const JobRequestModal: React.FC<JobRequestModalProps> = ({isOpen, selectedSubcat
           const [showPicker, setShowPicker] = useState(false);
           const [selectedImages, setSelectedImages] = useState<File[]>([]);
           const [submitting, setSubmitting] = useState<boolean>(false);     
+          const [showToast, setShowToast] = useState<boolean>(false);
+          const [toastText, setToastText] = useState<string>('');
+          const [openSuccess, setOpenSuccess] = useState<boolean>(false);
 
           const maxImages = 6; // Maximum number of images allowed
           const fileInputRef = useRef<HTMLInputElement>(null);
@@ -42,7 +45,8 @@ const JobRequestModal: React.FC<JobRequestModalProps> = ({isOpen, selectedSubcat
               const filesArray = Array.from(event.target.files);
         
               if (selectedImages.length + filesArray.length > maxImages) {
-                alert(`You can only upload up to ${maxImages} images.`);
+                setToastText(`You can only upload up to ${maxImages} images.`);
+                setShowToast(true)
                 return;
               }
         
@@ -91,12 +95,15 @@ const JobRequestModal: React.FC<JobRequestModalProps> = ({isOpen, selectedSubcat
         setSubmitting(true)
 
         if (!additionalDetails || !address) {
-          alert("Please fill in address and additional details fields");
+          setToastText("Please fill in address and additional details fields");
+          setShowToast(true)
+          setSubmitting(false);
           return;
         }
       
         if (selectedImages.length === 0) {
-          alert("Please upload at least one image");
+          setToastText("Please upload at least one image");
+          setShowToast(true);
           return;
         }
       
@@ -116,7 +123,8 @@ const JobRequestModal: React.FC<JobRequestModalProps> = ({isOpen, selectedSubcat
         try {
 
           if (!proofFile) {
-            alert("Please upload a proof file.");
+            setToastText("Please upload a proof file.");
+            setShowToast(true)
             return;
           }
 
@@ -136,7 +144,7 @@ const JobRequestModal: React.FC<JobRequestModalProps> = ({isOpen, selectedSubcat
             proofFile: base64Proof, // Send all selected images as Base64
           };
       
-          const response = await fetch("https://hq2soft.com/hq2ClientApi/saveJobRequest.php", {
+          const response = await fetch("http://localhost/hq2ClientApi/saveJobRequest.php", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -149,11 +157,16 @@ const JobRequestModal: React.FC<JobRequestModalProps> = ({isOpen, selectedSubcat
           }
       
           const responseData = await response.json();
-          console.log("Job request saved successfully:", responseData);
+
+          if(responseData.success){
+            console.log("Job request saved successfully:", responseData);
+            setOpenSuccess(true)
+  
+          }
       
           // Fetch supervisors by profession
           // const supervisorsResponse = await fetch(
-          //   `https://hq2soft.com/hq2ClientApi/supervisors.php?profession=${encodeURIComponent(selectedCategory?.category_name || "")}`,
+          //   `http://localhost/hq2ClientApi/supervisors.php?profession=${encodeURIComponent(selectedCategory?.category_name || "")}`,
           //   { method: "GET" }
           // );
       
@@ -180,6 +193,8 @@ const JobRequestModal: React.FC<JobRequestModalProps> = ({isOpen, selectedSubcat
         } catch (error) {
           console.error("Error saving job request or fetching supervisors:", error);
           alert("An error occurred. Please try again.");
+        }finally{
+          setSubmitting(false);
         }
       };
       
@@ -322,7 +337,7 @@ const convertFileToBase64 = (file: File): Promise<string> => {
         <IonContent>
           <div className={styles.modalContent}>
             <div className={styles.modalHead}>
-              Request for <span style={{color:"var(--ion-company-gold)"}}>{selectedSubcategory ? selectedSubcategory.subcategory_name : null}</span> from <span style={{color: "var(--ion-company-gold)"}}>{selectedCategory ? selectedCategory.category_name : 'Not Selected'}</span>
+              Request for <span style={{color:"var(--ion-company-gold)"}}>{selectedSubcategory ? selectedSubcategory.subcategory_name : null}</span>
             </div>
             <div style={{border: "0px solid", marginTop: "1rem"}}>
             <div className={styles.formGroup}>
@@ -404,7 +419,7 @@ const convertFileToBase64 = (file: File): Promise<string> => {
           onClick={() => setShowPicker(true)}
           style={{ width: "100%", cursor: "pointer", background: "transparent", border: "none", outline: "none", textAlign: "center" }}
         />
-        
+
                     </div>
                     <div className={styles.time}>
                          <input 
@@ -569,7 +584,7 @@ const convertFileToBase64 = (file: File): Promise<string> => {
 
             </div>
 
-            <button onClick={handleSubmitJobRequest} type="submit" style={{width: "100%", background: "var(--ion-company-wood)", fontWeight: "600", marginTop: "15px", paddingBlock: "12px", fontSize: "18px", borderRadius: "10px", marginBottom: "10px"}}>
+            <button onClick={handleSubmitJobRequest} type="submit" style={{width: "100%", background: "var(--ion-company-wood)", fontWeight: "600", marginTop: "15px", paddingBlock: "12px", fontSize: "18px", borderRadius: "10px", marginBottom: "10px", color: "white"}}>
                 Order Service
             </button>
             </div>
@@ -606,6 +621,11 @@ const convertFileToBase64 = (file: File): Promise<string> => {
           </IonContent>
         </IonModal>
         
+
+
+        <IonModal isOpen={openSuccess} onDidDismiss={()=>setOpenSuccess(false)}>
+          Job Request Successful
+        </IonModal>
         </IonModal>
 
     )

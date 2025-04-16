@@ -21,7 +21,7 @@ const CompletedJobs: React.FC = () => {
     const lastName = userInfo?.lastName || "";
     const userId = userInfo?.id || "";
 
-    const endpoint = "https://hq2soft.com/hq2ClientApi/getJob.php";
+    const endpoint = "http://localhost/hq2ClientApi/getJob.php";
 
     useEffect(() => {
         if (userId) {
@@ -117,7 +117,7 @@ const CompletedJobs: React.FC = () => {
                                 <div 
                                     style={{
                                         marginTop: "5px", 
-                                        borderTop: "1px solid grey", 
+                                        borderTop: "1px solid #ccc", 
                                         paddingTop: "4px", 
                                         display: "flex", 
                                         justifyContent: "space-between", 

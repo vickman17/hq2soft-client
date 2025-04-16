@@ -10,7 +10,7 @@ const RatingComponent: React.FC<{ userId: string; jobId: string; onSubmit: (rati
 
   useEffect(() => {
     // Fetch the user's rating from the backend
-    fetch(`https://hq2soft.com/hq2ClientApi/fetchRating.php?userId=${userId}&jobId=${jobId}`)
+    fetch(`http://localhost/hq2ClientApi/fetchRating.php?userId=${userId}&jobId=${jobId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.rating) {

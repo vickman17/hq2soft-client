@@ -8,8 +8,8 @@
 // }
 
 // const PaystackPayment: React.FC<PaystackData> = ({ transactionType, amount }) => {
-//     const backendUrl = "https://hq2soft.com/hq2ClientApi/initializePayment.php"; 
-//     const verifyUrl = "https://hq2soft.com/hq2ClientApi/verifyPayment.php"; 
+//     const backendUrl = "http://localhost/hq2ClientApi/initializePayment.php"; 
+//     const verifyUrl = "http://localhost/hq2ClientApi/verifyPayment.php"; 
 //     const currency = "NGN";
 
 //     const userDetails = sessionStorage.getItem("userInfo");

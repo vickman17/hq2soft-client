@@ -1,7 +1,7 @@
 import { IonContent, IonPage } from "@ionic/react";
 import React from "react";
 
-const Notification: React.FC = () => {
+const NotificationPage: React.FC = () => {
 
     return(
         <IonPage>
@@ -12,4 +12,4 @@ const Notification: React.FC = () => {
     )
 }
 
-export default Notification;
+export default NotificationPage;

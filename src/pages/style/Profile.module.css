@@ -1,7 +1,7 @@
 .item{
     padding-block: 15px;
     padding-inline: 5px;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #ccc;
     width: 95%;
     margin: auto;
     font-size: 18px;

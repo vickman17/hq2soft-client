@@ -73,7 +73,7 @@ const IntroPage: React.FC = () => {
     document.body.style.overflowX = "hidden";
   }, []);
 
-  const endpoint = "https://hq2soft.com/hq2ClientApi/login.php";
+  const endpoint = "http://localhost/hq2ClientApi/login.php";
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsSubmitting(true);
@@ -175,7 +175,7 @@ useEffect(()=>{
 
   const createPaystackAccount = async (user: { email: string; first_name: string; last_name: string, user_id: string }) => {
     try {
-      const response = await axios.post("https://hq2soft.com/hq2ClientApi/createVirtualAccount.php", user);
+      const response = await axios.post("http://localhost/hq2ClientApi/createVirtualAccount.php", user);
       console.log("Paystack Account Created:", response.data);
       return response.data;
     } catch (error) {
@@ -198,7 +198,7 @@ useEffect(()=>{
     setIsSubmitting(true); // Disable button when form is being submitted
   
     try {
-      const response = await fetch("https://hq2soft.com/hq2ClientApi/register.php", {
+      const response = await fetch("http://localhost/hq2ClientApi/register.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

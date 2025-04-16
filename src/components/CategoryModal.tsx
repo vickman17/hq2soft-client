@@ -52,7 +52,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ isOpen, onDidDismiss, cat
                                       margin: "auto",
                                       display: "block",
                                   }}
-                                  src={`https://hq2soft.com/hq2ClientApi/${category.category_pics}`}
+                                  src={`http://localhost/hq2ClientApi/${category.category_pics}`}
                                   alt={category.category_name}
                               />
 

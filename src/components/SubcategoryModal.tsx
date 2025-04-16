@@ -28,7 +28,7 @@ const SubcategoryModal: React.FC<SubcategoryModalProps> = ({
           <div
             style={{
               height: "270px",
-              backgroundImage: `url(https://hq2soft.com/hq2ClientApi/${selectedCategory.category_pics})`,
+              backgroundImage: `url(http://localhost/hq2ClientApi/${selectedCategory.category_pics})`,
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
               backgroundSize: "cover",

@@ -111,7 +111,7 @@ const Inbox: React.FC = () => {
     try {
       const jobDetailsMap: { [key: string]: JobDetails } = {};
       for (const room of rooms) {
-        const response = await fetch('https://hq2soft.com/hq2sspapi/getJobDetails.php', {
+        const response = await fetch('http://localhost/hq2sspapi/getJobDetails.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
