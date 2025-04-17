@@ -1,9 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 ext {
-    gradlePluginVersion = '7.4.2'
+    gradlePluginVersion = '7.4.2' // Define the gradle plugin version here
 }
-
-
 
 buildscript {
     repositories {
@@ -12,11 +10,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:${gradlePluginVersion}"
+        classpath "com.android.tools.build:gradle:${gradlePluginVersion}" // Reference the gradlePluginVersion
         classpath "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     }
 }
-
 
 apply from: "variables.gradle"
 
