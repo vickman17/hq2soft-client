@@ -10,7 +10,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:8.5" // Reference the gradlePluginVersion
+        classpath "com.android.tools.build:gradle:8.3.0" // Reference the gradlePluginVersion
         classpath "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     }
 }
