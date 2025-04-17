@@ -51,7 +51,7 @@ const App: React.FC = () => {
         if (granted) {
           FirebaseX.getToken().then(token => {
             console.log("🔥 Android Token:", token);
-            fetch('https://yourapi.com/save-token', {
+            fetch('https://hq2app.free.beeceptor.com', {
               method: 'POST',
               body: JSON.stringify({ token }),
               headers: { 'Content-Type': 'application/json' }

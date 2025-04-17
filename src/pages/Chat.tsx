@@ -43,7 +43,6 @@ const Chat: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
 
-  // Retrieve user info from sessionStorage
   const storedInfo = sessionStorage.getItem("userInfo");
   const info = storedInfo ? JSON.parse(storedInfo) : {};
   const sspId = info?.id || info?.user_id; // Use `id` or `user_id` based on your data
@@ -111,7 +110,6 @@ const Chat: React.FC = () => {
   };
 
   useEffect(() => {
-    // Scroll to the bottom when the component mounts or when messages are updated
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
