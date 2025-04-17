@@ -4,6 +4,20 @@ ext {
 }
 
 buildscript {
+        ext {
+        // Android SDK versions
+        compileSdkVersion = 34
+        minSdkVersion = 23
+        targetSdkVersion = 34
+
+        // Dependency versions
+        androidxAppCompatVersion = '1.6.1'
+        androidxCoordinatorLayoutVersion = '1.2.0'
+        coreSplashScreenVersion = '1.0.1'
+        junitVersion = '4.13.2'
+        androidxJunitVersion = '1.1.5'
+        androidxEspressoCoreVersion = '3.5.1'
+    }
     repositories {
         google()
         mavenCentral()
@@ -11,6 +25,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:8.3.0" // Reference the gradlePluginVersion
+        classpath "com.google.gms:google-services:4.4.1" // ✅ This is missing
         classpath "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     }
 }
