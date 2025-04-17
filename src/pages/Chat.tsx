@@ -47,8 +47,6 @@ const Chat: React.FC = () => {
   const info = storedInfo ? JSON.parse(storedInfo) : {};
   const sspId = info?.id || info?.user_id; // Use `id` or `user_id` based on your data
 
-  console.log("User Info:", info);
-  console.log("SSP ID:", sspId);
 
   const formatTime = (timestamp: any) => {
     if (!timestamp) return '';
