@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:23.0.0'
 }
 
-// agit pply from: 'capacitor.build.gradle'
+apply from: 'capacitor.build.gradle'
 
 try {
     def servicesJSON = file('google-services.json')
